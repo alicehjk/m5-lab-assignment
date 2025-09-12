@@ -59,3 +59,33 @@ body {
   text-align: center;
   margin-right: 10px;
 }
+
+.qty-controls {
+  display: flex;
+  align-items: center;
+}
+
+.qty-controls button {
+  background-color: #5a6d7c;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  margin-right: 5px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.qty-controls button:hover {
+  background-color: #3b4c59;
+}
+
+.qty-label {
+  margin: 0 10px;
+  font-size: 14px;
+}
+
+.qty-input {
+  width: 50px;
+  text-align: center;
+}
