@@ -133,3 +133,198 @@ body {
   object-fit: contain;
   margin: 15px 0;
 }
+
+
+.facebook-login-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background-color: #1877f2;
+  color: white;
+  font-weight: 600;
+  border: none;
+  padding: 10px 20px;
+  font-size: 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.facebook-login-btn:hover {
+  background-color: #145dbf;
+}
+
+.fb-icon {
+  width: 20px;
+  height: 20px;
+  border-radius: 3px;
+}
+
+.user-avatar {
+  border-radius: 50%;
+  margin-bottom: 8px;
+  width: 40px;
+  height: 40px;
+}
+
+
+.signin-container {
+  max-width: 400px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background: #fff;
+}
+
+.signin-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.signin-form label {
+  font-weight: bold;
+}
+
+.signin-form input {
+  padding: 6px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.form-login-btn {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.form-login-btn:hover {
+  background-color: #218838;
+}
+
+.divider {
+  text-align: center;
+  margin: 15px 0;
+  font-weight: bold;
+  color: #888;
+}
+
+.facebook-login-btn {
+  background-color: #4267b2;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.facebook-login-btn:hover {
+  background-color: #365899;
+}
+
+.checkout-container {
+  max-width: 500px;
+  margin: 20px auto;
+  padding: 20px;
+  text-align: left;
+}
+
+.checkout-card {
+  border: 1px solid #ddd;
+  background: #f9f9f9;
+  border-radius: 6px;
+  margin-bottom: 15px;
+}
+
+.welcome-text {
+  font-weight: bold;
+  color: green;
+  margin: 0;
+}
+
+.checkout-subtext {
+  margin: 5px 0 0;
+  color: #555;
+}
+
+.checkout-list {
+  list-style: none;
+  padding: 0;
+}
+
+.checkout-list li {
+  margin: 5px 0;
+}
+
+.empty-cart {
+  margin: 20px auto;
+  padding: 20px;
+  max-width: 400px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  text-align: center;
+  background: #fff;
+}
+
+.continue-btn {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.continue-btn:hover {
+  background-color: #218838;
+}
+
+
+.checkout-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.checkout-card {
+  width: 500px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background: #fff;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.checkout-card-header {
+  background: #f5f5f5;
+  padding: 10px 15px;
+  font-weight: bold;
+  border-bottom: 1px solid #ddd;
+}
+
+.checkout-card-body {
+  padding: 20px;
+}
+
+.welcome-text {
+  font-weight: bold;
+  color: #28a745;
+  margin: 0 0 8px 0;
+}
+
+.checkout-subtext {
+  color: #555;
+  margin-bottom: 15px;
+}
+
+.checkout-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.checkout-list li {
+  margin: 5px 0;
+}
