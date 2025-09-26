@@ -45,8 +45,7 @@ export default function App() {
       {/* Routing */}
       {page === "products" && (
         <div>
-          <h2>Your Cart Items</h2>
-
+          {cart.length > 0 && <h2>Your Cart Items</h2>}
           {cartCount === 0 && showEmpty ? (
             <div className="empty-cart">
               <p>There are {cartCount} items in your cart.</p>

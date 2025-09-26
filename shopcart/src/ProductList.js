@@ -1,70 +1,130 @@
 import React, { useState } from "react";
-import "./styles.css";
 
-// Products data (images in public/products folder)
 const products = [
-  { id: 1, name: "Unisex Cologne", image: process.env.PUBLIC_URL + "/products/cologne.jpg", rating: 4.2 },
-  { id: 2, name: "Apple iWatch", image: process.env.PUBLIC_URL + "/products/iwatch.jpg", rating: 3.5 },
-  { id: 3, name: "Unique Mug", image: process.env.PUBLIC_URL + "/products/mug.jpg", rating: 4.8 },
-  { id: 4, name: "Mens Wallet", image: process.env.PUBLIC_URL + "/products/wallet.jpg", rating: 4.0 },
+  {
+    id: 1,
+    image: './products/cologne.jpg',
+    desc: 'Unisex Cologne',
+    price: 35,
+    ratings: '4',
+    value: 0
+  },
+  {
+    id: 2,
+    image: './products/iwatch.jpg',
+    desc: 'Apple iWatch',
+    price: 199,
+    ratings: '3.5',
+    value: 0
+  },
+  {
+    id: 3,
+    image: './products/mug.jpg',
+    desc: 'Unique Mug',
+    price: 15,
+    ratings: '5',
+    value: 0
+  },
+  {
+    id: 4,
+    image: './products/wallet.jpg',
+    desc: 'Mens Wallet',
+    price: 48,
+    ratings: '4.5',
+    value: 0
+  }
 ];
 
-export default function ProductList({ onQuantityChange }) {
-  const [quantities, setQuantities] = useState(
-    products.reduce((acc, p) => ({ ...acc, [p.id]: 0 }), {})
-  );
+function ProductList({ onQuantityChange }) {
+  const [quantities, setQuantities] = useState({});
+  const [sortOption, setSortOption] = useState("normal");
 
-  const [selectedProduct, setSelectedProduct] = useState(null);
-
-  const updateQuantity = (id, newQty) => {
-    if (newQty < 0) newQty = 0;
-    const newQuantities = { ...quantities, [id]: newQty };
-    setQuantities(newQuantities);
-    onQuantityChange(newQuantities);
+  const sanitize = (v) => {
+    const n = Math.floor(Number(v));
+    return Number.isFinite(n) && n > 0 ? n : 0;
   };
+
+  const updateQty = (id, next) => {
+    setQuantities((q) => {
+      const updated = { ...q, [id]: sanitize(next) };
+      onQuantityChange?.(updated);
+      return updated;
+    });
+  };
+
+  // Sorting logic
+  const sortedProducts = [...products].sort((a, b) => {
+    switch (sortOption) {
+      case "lowest":
+        return a.price - b.price;
+      case "highest":
+        return b.price - a.price;
+      default:
+        return a.id - b.id;
+    }
+  });
 
   return (
     <div className="product-list">
-      {products.map((product) => (
-        <div key={product.id} className="product-row">
-          <img
-            src={product.image}
-            alt={product.name}
-            className="product-img"
-            onClick={() => setSelectedProduct(product)} // 👈 click opens modal
-          />
-          <div className="product-info">
-            <h3>{product.name}</h3>
+      {/* Sort bar */}
+      <div className="sort-bar" style={{ textAlign: "center", margin: "15px 0" }}>
+        <label htmlFor="sortMenu" style={{ marginRight: "5px" }}>
+          Sort Price By:
+        </label>
+        <select
+          id="sortMenu"
+          value={sortOption}
+          onChange={(e) => setSortOption(e.target.value)}
+        >
+          <option value="normal">Normal</option>
+          <option value="lowest">Lowest</option>
+          <option value="highest">Highest</option>
+        </select>
+      </div>
 
-            <div className="qty-controls">
-              <button onClick={() => updateQuantity(product.id, quantities[product.id] + 1)}>+</button>
-              <button onClick={() => updateQuantity(product.id, quantities[product.id] - 1)}>-</button>
-              <span className="qty-label">Quantity</span>
-              <input
-                type="number"
-                min="0"
-                value={quantities[product.id]}
-                onChange={(e) => updateQuantity(product.id, parseInt(e.target.value) || 0)}
-                className="qty-input"
-              />
+      {/* Products list */}
+      <div className="products-container">
+        {sortedProducts.map((p) => (
+          <div key={p.id} className="product-item" style={{ borderBottom: "1px solid #eee", padding: "20px 0" }}>
+            {/* Title + price inline */}
+            <h3>
+              {p.desc} <span style={{ color: "red", marginLeft: "8px" }}>${p.price}</span>
+            </h3>
+
+            {/* Row: image + controls */}
+            <div style={{ display: "flex", alignItems: "center", gap: "20px", marginTop: "10px" }}>
+              <img src={p.image} alt={p.desc} width="100" />
+
+              <div className="qty-controls" style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                <button
+                  type="button"
+                  aria-label={`Increase ${p.desc}`}
+                  onClick={() => updateQty(p.id, (quantities[p.id] || 0) + 1)}
+                >
+                  +
+                </button>
+                <button
+                  type="button"
+                  aria-label={`Decrease ${p.desc}`}
+                  disabled={!quantities[p.id]}
+                  onClick={() => updateQty(p.id, (quantities[p.id] || 0) - 1)}
+                >
+                  -
+                </button>
+                <span>Quantity</span>
+                <input
+                  type="number"
+                  min="0"
+                  value={quantities[p.id] || 0}
+                  onChange={(e) => updateQty(p.id, e.target.value)}
+                />
+              </div>
             </div>
           </div>
-        </div>
-      ))}
-
-      {/* Modal */}
-      {selectedProduct && (
-        <div className="modal-overlay" onClick={() => setSelectedProduct(null)}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <div className="modal-header">
-              <h2>{selectedProduct.name}</h2>
-              <button className="close-btn" onClick={() => setSelectedProduct(null)}>✕</button>
-            </div>
-            <img src={selectedProduct.image} alt={selectedProduct.name} className="modal-img" />
-            <p>Ratings: {selectedProduct.rating}/5</p>
-          </div>
-        </div>
-      )}
+        ))}
+      </div>
     </div>
   );
 }
+
+export default ProductList;
